@@ -1,4 +1,5 @@
 #! /usr/bin/python3 
+
 import os
 import yaml
 from colorama import Fore
@@ -9,15 +10,21 @@ art = """
 (___/(____) (__) (______)(__)    (___/(_) (_)(____)(__)   (__) 
 """
 def installer(packages):
+    print(Fore.YELLOW + "\nType 'all' to install all packages or choose a single package\n")
     i = 1
     for p in packages:
-        print('[',i,']',p[0],'\n')
+        print(Fore.RED + '[',i,']',p[0],'\n')
         i = i+1
-    option = int(input(":$ "))
-    # print(len(packages))
-    if (option in range(0,len(packages)+1) ):
-        os.system(packages[option-1][1])
-
+    option = input(":$ ")
+    if not option == "all":
+        option = int(option)
+        if (option in range(0,len(packages)+1) ):
+            os.system(packages[option-1][1])
+    else:
+        for i in range(len(packages)):
+            cmd = packages[i][1]
+            os.system(cmd)    
+    
 def add():
     print(Fore.YELLOW + "What's the name of the automated command: ")
     pack_name = str(input(':$ '))
